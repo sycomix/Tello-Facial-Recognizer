@@ -55,29 +55,30 @@ func main() {
 	rightX.Store(float64(0.0))
 	rightY.Store(float64(0.0))
 
-	stick.On(joystick.APress, func(data interface{}) {
+	stick.On(joystick.StartPress, func(data interface{}) {
 		drone.TakeOff()
 	})
 
-	stick.On(joystick.XPress, func(data interface{}) {
+	stick.On(joystick.BackPress, func(data interface{}) {
 		drone.Land()
 	})
 
-	stick.On(joystick.BPress, func(data interface{}) {
+	stick.On(joystick.YPress, func(data interface{}) {
+		fmt.Println("FrontFlip")
 		drone.FrontFlip()
 	})
 
-	stick.On(joystick.DownPress, func(data interface{}) {
+	stick.On(joystick.APress, func(data interface{}) {
 		fmt.Println("BackFlip")
 		drone.BackFlip()
 	})
 
-	stick.On(joystick.YPress, func(data interface{}) {
+	stick.On(joystick.BPress, func(data interface{}) {
 		fmt.Println("RightFlip")
 		drone.RightFlip()
 	})
 
-	stick.On(joystick.LeftPress, func(data interface{}) {
+	stick.On(joystick.XPress, func(data interface{}) {
 		fmt.Println("LeftFlip")
 		drone.LeftFlip()
 	})

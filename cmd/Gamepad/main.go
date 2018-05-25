@@ -26,6 +26,9 @@ func main() {
 	drone := tello.NewDriver("8888")
 
 	work := func() {
+		drone.SetSlowMode()
+		slowModeEnabled := false
+
 		leftX.Store(float64(0.0))
 		leftY.Store(float64(0.0))
 		rightX.Store(float64(0.0))
@@ -35,19 +38,19 @@ func main() {
 			drone.TakeOff()
 		})
 
-		stick.On(joystick.APress, func(data interface{}) {
+		stick.On(joystick.BackPress, func(data interface{}) {
 			drone.Land()
 		})
 
 		stick.On(joystick.YPress, func(data interface{}) {
-			fmt.Println("BackFlip")
+			fmt.Println("FrontFlip")
 			drone.FrontFlip()
 		})
 
-		// stick.On(joystick.APress, func(data interface{}) {
-		// 	fmt.Println("BackFlip")
-		// 	drone.BackFlip()
-		// })
+		stick.On(joystick.APress, func(data interface{}) {
+			fmt.Println("BackFlip")
+			drone.BackFlip()
+		})
 
 		stick.On(joystick.BPress, func(data interface{}) {
 			fmt.Println("RightFlip")
@@ -77,6 +80,20 @@ func main() {
 		stick.On(joystick.RightY, func(data interface{}) {
 			val := float64(data.(int16))
 			rightY.Store(val)
+		})
+
+		stick.On(joystick.LBPress, func(data interface{}) {
+			if slowModeEnabled {
+				slowModeEnabled = !slowModeEnabled
+				drone.SetFastMode()
+			} else {
+				slowModeEnabled = true
+				drone.SetSlowMode()
+			}
+		})
+
+		stick.On(joystick.RBPress, func(data interface{}) {
+			drone.Bounce()
 		})
 
 		gobot.Every(10*time.Millisecond, func() {

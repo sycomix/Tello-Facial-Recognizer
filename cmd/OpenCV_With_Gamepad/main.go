@@ -28,6 +28,9 @@ var leftX, leftY, rightX, rightY atomic.Value
 const offset = 32767.0
 
 func main() {
+	//_, currentfile, _, _ := runtime.Caller(0)
+	//cascade := path.Join(path.Dir(currentfile), "haarcascade_frontalface_alt.xml")
+
 	joystickAdaptor := joystick.NewAdaptor()
 	stick := joystick.NewDriver(joystickAdaptor, "xbox360")
 	window := opencv.NewWindowDriver()
@@ -40,30 +43,30 @@ func main() {
 		rightX.Store(float64(0.0))
 		rightY.Store(float64(0.0))
 
-		stick.On(joystick.APress, func(data interface{}) {
+		stick.On(joystick.StartPress, func(data interface{}) {
 			drone.TakeOff()
 		})
 
-		stick.On(joystick.XPress, func(data interface{}) {
+		stick.On(joystick.BackPress, func(data interface{}) {
 			drone.Land()
 		})
 
-		stick.On(joystick.UpPress, func(data interface{}) {
+		stick.On(joystick.YPress, func(data interface{}) {
 			fmt.Println("FrontFlip")
 			drone.FrontFlip()
 		})
 
-		stick.On(joystick.DownPress, func(data interface{}) {
+		stick.On(joystick.APress, func(data interface{}) {
 			fmt.Println("BackFlip")
 			drone.BackFlip()
 		})
 
-		stick.On(joystick.RightPress, func(data interface{}) {
+		stick.On(joystick.BPress, func(data interface{}) {
 			fmt.Println("RightFlip")
 			drone.RightFlip()
 		})
 
-		stick.On(joystick.LeftPress, func(data interface{}) {
+		stick.On(joystick.XPress, func(data interface{}) {
 			fmt.Println("LeftFlip")
 			drone.LeftFlip()
 		})
