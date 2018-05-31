@@ -26,40 +26,48 @@ func main() {
 	drone := tello.NewDriver("8888")
 
 	work := func() {
-		drone.SetSlowMode()
-		slowModeEnabled := false
-
 		leftX.Store(float64(0.0))
 		leftY.Store(float64(0.0))
 		rightX.Store(float64(0.0))
 		rightY.Store(float64(0.0))
 
 		stick.On(joystick.StartPress, func(data interface{}) {
-			drone.TakeOff()
+			fmt.Println("Take off!")
 		})
 
 		stick.On(joystick.BackPress, func(data interface{}) {
+			fmt.Println("Attempting To Land")
 			drone.Land()
 		})
 
-		stick.On(joystick.YPress, func(data interface{}) {
+		stick.On(joystick.UpPress, func(data interface{}) {
 			fmt.Println("FrontFlip")
 			drone.FrontFlip()
 		})
 
-		stick.On(joystick.APress, func(data interface{}) {
+		stick.On(joystick.DownPress, func(data interface{}) {
 			fmt.Println("BackFlip")
 			drone.BackFlip()
 		})
 
-		stick.On(joystick.BPress, func(data interface{}) {
+		stick.On(joystick.RightPress, func(data interface{}) {
 			fmt.Println("RightFlip")
 			drone.RightFlip()
 		})
 
-		stick.On(joystick.XPress, func(data interface{}) {
+		stick.On(joystick.LeftPress, func(data interface{}) {
 			fmt.Println("LeftFlip")
 			drone.LeftFlip()
+		})
+
+		stick.On(joystick.APress, func(data interface{}) {
+			fmt.Println("Ready For Throw Takeoff")
+			drone.ThrowTakeOff()
+		})
+
+		stick.On(joystick.BPress, func(data interface{}) {
+			fmt.Println("Boing!!")
+			drone.Bounce()
 		})
 
 		stick.On(joystick.LeftX, func(data interface{}) {
@@ -83,17 +91,13 @@ func main() {
 		})
 
 		stick.On(joystick.LBPress, func(data interface{}) {
-			if slowModeEnabled {
-				slowModeEnabled = !slowModeEnabled
-				drone.SetFastMode()
-			} else {
-				slowModeEnabled = true
-				drone.SetSlowMode()
-			}
+			fmt.Println("Slow Mode Enabled")
+			drone.SetFastMode()
 		})
 
 		stick.On(joystick.RBPress, func(data interface{}) {
-			drone.Bounce()
+			fmt.Println("Slow Mode Disabled")
+			drone.SetSlowMode()
 		})
 
 		gobot.Every(10*time.Millisecond, func() {
