@@ -26,7 +26,7 @@ func main() {
 	stick := joystick.NewDriver(joystickAdaptor, "xbox360")
 
 	work := func() {
-		mplayer := exec.Command("mplayer", "-fps", "30", "-")
+		mplayer := exec.Command("mplayer", "-fps", "30", "-dumpstream", "-dumpfile", "assets/tello_video.mp4", "-")
 		mplayerIn, _ := mplayer.StdinPipe()
 		if err := mplayer.Start(); err != nil {
 			fmt.Println(err)
