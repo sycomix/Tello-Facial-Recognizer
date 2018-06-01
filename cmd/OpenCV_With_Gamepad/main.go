@@ -45,6 +45,7 @@ func main() {
 
 		stick.On(joystick.StartPress, func(data interface{}) {
 			fmt.Println("Take off!")
+			drone.TakeOff()
 		})
 
 		stick.On(joystick.BackPress, func(data interface{}) {
