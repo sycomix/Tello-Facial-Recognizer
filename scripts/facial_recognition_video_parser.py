@@ -3,15 +3,15 @@ import face_recognition, cv2
 video_capture = cv2.VideoCapture("assets/tello_video.mp4")
 video_capture.set(cv2.CAP_PROP_FPS, 25)
 
-#issa_image = face_recognition.load_image_file("assets/people/issa.jpg") # Make sure to convert to RGB 
-#issa_face_encoding = face_recognition.face_encodings(issa_image)[0]
+issa_image = face_recognition.load_image_file("assets/people/issa.jpg") # Make sure to convert to RGB 
+issa_face_encoding = face_recognition.face_encodings(issa_image)[0]
 
 known_face_encodings = [
-#    issa_face_encoding
+    issa_face_encoding
 ]
 
 known_face_names = [
-#    "Issa Mathno"
+    "Issa Mathno"
 ]
 
 face_locations = []
