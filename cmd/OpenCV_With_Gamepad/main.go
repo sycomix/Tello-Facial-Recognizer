@@ -105,12 +105,12 @@ func main() {
 
 		stick.On(joystick.LBPress, func(data interface{}) {
 			fmt.Println("Slow Mode Enabled")
-			drone.SetFastMode()
+			drone.SetSlowMode()
 		})
 
 		stick.On(joystick.RBPress, func(data interface{}) {
 			fmt.Println("Slow Mode Disabled")
-			drone.SetSlowMode()
+			drone.SetFastMode()
 		})
 
 		gobot.Every(10*time.Millisecond, func() {

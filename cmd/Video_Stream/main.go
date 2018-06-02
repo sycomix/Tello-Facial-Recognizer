@@ -23,7 +23,7 @@ func main() {
 	drone := tello.NewDriver("8890")
 
 	work := func() {
-		mplayer := exec.Command("mplayer", "-fps", "30", "-dumpstream", "-dumpfile", "assets/tello_video.mp4", "-")
+		mplayer := exec.Command("mplayer", "-fps", "25", "-dumpstream", "-dumpfile", "assets/tello_video.mp4", "-")
 		mplayerIn, _ := mplayer.StdinPipe()
 		if err := mplayer.Start(); err != nil {
 			fmt.Println(err)
